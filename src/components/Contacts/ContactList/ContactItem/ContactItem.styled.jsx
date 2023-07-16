@@ -13,14 +13,15 @@ export const Item = styled.li`
 `;
 
 export const Name = styled.span`
-  margin-right: auto;
+  width: 70px;
+  margin-right: 16px;
 
   font-size: 18px;
   font-weight: 700;
 `;
 
 export const Number = styled.span`
-  margin-right: 50px;
+  margin-right: auto;
 `;
 
 export const Btn = styled.button`

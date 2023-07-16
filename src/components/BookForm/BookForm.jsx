@@ -1,8 +1,23 @@
 import { useFormik } from 'formik';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Btn, InputField, Label, TextWrapper, Title } from './BookForm.styled';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'store/operations';
+
+const errorNotify = target =>
+  toast.error(`${target} already exists in the phonebook`, {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'colored',
+  });
 
 const BookForm = ({ title }) => {
   const contacts = useSelector(state => state.contacts.items);
@@ -16,11 +31,12 @@ const BookForm = ({ title }) => {
       if (!values.name || !values.number) return;
 
       if (
-        contacts.find(
-          el => el.name === values.name || el.number === values.number
-        )
+        contacts.find(el => el.name.toLowerCase() === values.name.toLowerCase())
       )
-        return;
+        return errorNotify(`Name ${values.name}`);
+
+      if (contacts.find(el => el.number === values.number))
+        return errorNotify(`Phone number ${values.number}`);
 
       dispatch(addContact(values));
 
@@ -56,6 +72,9 @@ const BookForm = ({ title }) => {
           Add contact
         </Btn>
       </form>
+      <div>
+        <ToastContainer />
+      </div>
     </div>
   );
 };
