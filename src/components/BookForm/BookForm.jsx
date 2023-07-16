@@ -1,10 +1,9 @@
 import { useFormik } from 'formik';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { Btn, InputField, Label, TextWrapper, Title } from './BookForm.styled';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { Btn, InputField, Label, TextWrapper, Title } from './BookForm.styled';
 import { addContact } from 'store/operations';
 
 const errorNotify = target =>
